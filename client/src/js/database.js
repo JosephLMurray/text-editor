@@ -26,15 +26,15 @@ export const putDb = async (content) => {
   const store = tx.objectStore("jate");
 
   // Use the .add() method on the store and pass in the content.
-  const request = store.put({ content: content });
+  const request = store.put({ id: 1, value: content });
 
   // Get confirmation of the request.
   const result = await request;
   console.log("🚀 - data saved to the database", result);
 };
 
-// Add logic for a method that gets all the content from the database
-export const getDb = async () => {
+// Add logic for a method that gets  the content from the database
+export const getDb = async (event) => {
   console.log("GET from the database");
 
   // Create a connection to the database database and version we want to use.
@@ -46,13 +46,12 @@ export const getDb = async () => {
   // Open up the desired object store.
   const store = tx.objectStore("jate");
 
-  // Use the .getAll() method to get all data in the database.
-  const request = store.getAll();
-
+  // Use the .get() method to get all data in the database.
+  const request = store.get(1);
   // Get confirmation of the request.
   const result = await request;
-  console.log("result.value", result);
-  return result;
+
+  return result?.value;
 };
 
 initdb();
